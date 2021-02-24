@@ -7,6 +7,7 @@ package Vista;
 
 import Modelo.DAO.loginDAO; 
 import Modelo.DTO.loginDTO; 
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -164,7 +165,13 @@ public class Login extends javax.swing.JFrame {
          obj.setClave(clave);
          System.out.println(obj.getClave());
           ob.validarLogin(obj); 
-         
+         if(ob.validarLogin(obj)!=null){
+             Vista_Principal view = new Vista_Principal();
+             this.setVisible(false);
+             view.setVisible(true);             
+         }else{
+             JOptionPane.showMessageDialog(this, "credenciales incorrectas");
+         }
          
      }
     /**

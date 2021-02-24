@@ -61,6 +61,13 @@ public class PlatoDTO implements Serializable {
         return ruta_imagen;
     }
 
+    public PlatoDTO(int id_plato, String nombre, String descipcion, float precio) {
+        this.id_plato = id_plato;
+        this.nombre = nombre;
+        this.descipcion = descipcion;
+        this.precio = precio;
+    }
+
     public void setRuta_imagen(InputStream ruta_imagen) {
         this.ruta_imagen = ruta_imagen;
     }

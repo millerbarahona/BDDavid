@@ -28,7 +28,7 @@ public class verCliente extends javax.swing.JDialog {
         DefaultTableModel modelo =  (DefaultTableModel) this.getTabla().getModel();
         ClienteDAO dao = new ClienteDAO();
         List<ClienteDTO> lst = null;
-        lst =dao.readadll();
+        lst =dao.readAll();
         String []  fila = new String[2];
         for (int i = 0; i<lst.size(); i++){
             fila[0]=lst.get(i).getId_cliente()+"";

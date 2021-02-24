@@ -1,5 +1,6 @@
 package Modelo.DAO;
 
+import Modelo.DTO.IngredientesDTO;
 import conexiones.Conexion;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -23,12 +24,13 @@ public class PlatoDAO {
     private static final String SQL_UPDATE = "UPDATE plato SET  nombre = ? ,und_pro = ?, descripcion = ? , ruta_imagen = ? , precio = ?  WHERE id_plato = ?";
     private static final String SQL_READ = "SELECT *FROM plato WHERE id_plato = ?";
     private static final String SQL_READALL = "SELECT *FROM plato";
+    private static final String SQL_READALLNE = "SELECT ingredientes.nombre,ingredientes.codigo_ingredientes,necesitar.id_plato FROM `ingredientes` INNER JOIN necesitar on ingredientes.codigo_ingredientes=necesitar.codigo_ingredientes where necesitar.id_plato=?";
 
     private static final Conexion con = Conexion.getInstance();
 
     public boolean create(PlatoDTO c, List<Integer> ingredientes) {
         try {
-            PreparedStatement ps ;
+            PreparedStatement ps;
             PreparedStatement ps1;
             ps = con.getCnn().prepareStatement(SQL_INSERT1);
             ps.setInt(1, c.getId_plato());
@@ -37,17 +39,16 @@ public class PlatoDAO {
             ps.setFloat(4, c.getPrecio());
 
             if (ps.executeUpdate() > 0) {
-                
+
                 ps1 = con.getCnn().prepareStatement(SQL_INSERT2);
                 for (int i = 0; i < ingredientes.size(); i++) {
                     ps1.setInt(1, c.getId_plato());
                     ps1.setInt(2, ingredientes.get(i));
-                    if (ps1.executeUpdate() > 0){
+                    if (ps1.executeUpdate() > 0) {
                         System.out.println("bien jeje");
                     }
                 }
-                 
-                
+
                 return true;
             }
         } catch (SQLException ex) {
@@ -82,6 +83,7 @@ public class PlatoDAO {
         }
         return lst;
     }
+
 
     public boolean delete(PlatoDTO item) {
 
@@ -133,7 +135,6 @@ public class PlatoDAO {
                         rs.getInt("id_plato"),
                         rs.getString("nombre"),
                         rs.getString("descripcion"),
-                        rs.getBinaryStream("ruta_imagen"),
                         rs.getFloat("precio")
                 );
             }
@@ -144,5 +145,29 @@ public class PlatoDAO {
         }
         return objRes;
     }
-
+    
+    public List<IngredientesDTO> readNe(PlatoDTO filter) {
+        
+        List<IngredientesDTO> lst= null;
+        PreparedStatement psnt;
+        try {
+             psnt = con.getCnn().prepareStatement(SQL_READALLNE);            
+            lst = new ArrayList<>();
+            psnt.setInt(1, filter.getId_plato());
+            ResultSet rs = psnt.executeQuery();
+            while (rs.next()) {
+                IngredientesDTO obj = new IngredientesDTO(
+                        rs.getInt("codigo_ingredientes"),
+                        rs.getString("nombre") 
+                        
+                );
+                lst.add(obj);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlatoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            con.CerrarConexion();
+        }
+        return lst;
+    }
 }

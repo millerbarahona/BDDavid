@@ -30,6 +30,9 @@ public class PlatoDTO implements Serializable {
         this.precio = precio;
        
     }
+    public PlatoDTO( ) {
+
+    }
 
     public int getId_plato() {
         return id_plato;

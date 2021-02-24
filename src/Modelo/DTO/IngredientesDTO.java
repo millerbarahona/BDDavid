@@ -21,7 +21,13 @@ public class IngredientesDTO implements Serializable {
         this.cantidad = cantidad;
         this.unidad_medida = unidad_medida;
     }
-
+    public IngredientesDTO(int codigo_ingredientes, String nombre) {
+        this.codigo_ingredientes = codigo_ingredientes;
+        this.nombre = nombre;
+    }
+    public IngredientesDTO() {
+        
+    }
     public IngredientesDTO( String nombre, int cantidad, float unidad_medida) {
       
         this.nombre = nombre;

@@ -184,8 +184,9 @@ public class plato extends javax.swing.JDialog {
         int id=Integer.parseInt(this.getId().getText());
         String nombre= this.getNombre().getText();
         String descripcion = this.getjTextArea1().getText();
-        double precio = Double.parseDouble(this.getPrecio().getText());        
-        PlatoDTO dto = new PlatoDTO(id, nombre, descripcion, (float) precio);
+        float precio = Float.parseFloat(this.getPrecio().getText());        
+        PlatoDTO dto = new PlatoDTO(id, nombre, descripcion, precio);
+        dto.setPrecio(precio);
         ArrayList<Integer> ingredientes = new ArrayList<Integer>();
         System.out.println(this.getIn1().getSelectedItem().toString());
         int in1 = Integer.parseInt(this.getIn1().getSelectedItem().toString());

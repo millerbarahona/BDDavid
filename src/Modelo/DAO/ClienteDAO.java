@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 public class ClienteDAO {
    private static final String SQL_READ="SELECT * FROM cliente WHERE id_cliente= ? ";
+   private static final String SQL_READALL="SELECT * FROM cliente";
    private static final String SQL_INSERT = "INSERT INTO cliente"
            +"(id_cliente, nombre) VALUES(?, ?)";
    private static final String SQL_UPDATE="UPDATE cliente SET nombre = ?,  WHERE id_cliente = ? ";
@@ -90,5 +91,26 @@ public class ClienteDAO {
        }
        return objRes;
 }
+      public List<ClienteDTO> readAll() {
+        List<ClienteDTO> lst = null;
+        PreparedStatement psnt;
+        try {
+            psnt = con.getCnn().prepareStatement(SQL_READALL);
+            ResultSet rs = psnt.executeQuery();
+            lst = new ArrayList<>();
+            while (rs.next()) {
+                ClienteDTO obj = new ClienteDTO(
+                        rs.getInt("id_cliente"),
+                        rs.getString("nombre")
+                );
+                lst.add(obj);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            con.CerrarConexion();
+        }
+        return lst;
+    }
 }
 

@@ -12,6 +12,8 @@ public class IngredientesDTO implements Serializable {
     private String nombre ;
     private int cantidad ; 
     private float unidad_medida ;
+    private String fecha;
+    private int id_prov;
 
     public IngredientesDTO(int codigo_ingredientes, String nombre, int cantidad, float unidad_medida) {
         this.codigo_ingredientes = codigo_ingredientes;
@@ -25,6 +27,15 @@ public class IngredientesDTO implements Serializable {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.unidad_medida = unidad_medida;
+    }
+    
+    public IngredientesDTO(int codigo_ingredientes, String nombre, int cantidad,String fecha, float unidad_medida, int id_prov) {
+        this.codigo_ingredientes = codigo_ingredientes;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.unidad_medida = unidad_medida;
+        this.fecha=fecha;
+        this.id_prov= id_prov;
     }
 
     public int getCodigo_ingredientes() {
@@ -58,6 +69,22 @@ public class IngredientesDTO implements Serializable {
 
     public void setUnidad_medida(float unidad_medida) {
         this.unidad_medida = unidad_medida;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getId_prov() {
+        return id_prov;
+    }
+
+    public void setId_prov(int id_prov) {
+        this.id_prov = id_prov;
     }
 
     

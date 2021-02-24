@@ -7,6 +7,7 @@ package Vista;
 
 import Modelo.DAO.loginDAO; 
 import Modelo.DTO.loginDTO; 
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -147,8 +148,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       validar(); 
-        System.out.println("entramos");
+        validar(); 
        
     }//GEN-LAST:event_jButton1ActionPerformed
    
@@ -163,8 +163,14 @@ public class Login extends javax.swing.JFrame {
          obj.setCorreo(correo);
          obj.setClave(clave);
          System.out.println(obj.getClave());
-          ob.validarLogin(obj); 
-         
+          
+         if(ob.validarLogin(obj)!=null){
+             Vista_Principal view = new Vista_Principal();
+             this.setVisible(false);
+             view.setVisible(true);             
+         }else{
+             JOptionPane.showMessageDialog(this, "credenciales incorrectas");
+         }
          
      }
     /**

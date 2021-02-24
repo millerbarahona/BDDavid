@@ -18,7 +18,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try {
-                cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coma_contento","root","");
+                cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coma_contento", "root", "");
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
